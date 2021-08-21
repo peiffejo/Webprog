@@ -2,7 +2,9 @@ extends layout
 
 block content
     each post in products
-        a.title(href='/blog/singlePost/'+post.id) #{post.name}
+        img(src='/pic/ColaDose.jpg' width='300' height='300') 
+        br
+        a#TitleList.title(href='/blog/singlePost/'+post.id) #{post.name}
         p Amount: #{post.amount}
         p Superhero: #{post.today}   
         p#love
