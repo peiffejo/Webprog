@@ -1,3 +1,16 @@
 extends layout
 
 block content
+    each post in products
+        a.title(href='/blog/singlePost/'+post.id) #{post.name}
+        p Amount: #{post.amount}
+        p Superhero: #{post.today}   
+        p#love
+        script.
+            if(#{post.MHD} >= 0){
+            document.getElementById('love').innerHTML = "Your food Lifetime is in " + #{post.MHD} + " days over" ;  
+            }else{
+            document.getElementById('love').innerHTML = "The Food MHD date is over since " + Math.abs(#{post.MHD}) + " days" ;
+            }
+        button#DetailBtn(type= )
+        p.lastentry 
