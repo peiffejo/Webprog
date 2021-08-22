@@ -4,7 +4,6 @@ var router = express.Router();
 
 // Array for the Products
 const today = new Date();
-const MHD = new Date(2021, 7, 20);
 
 //get Pic
 var getData = function () {
@@ -16,8 +15,21 @@ let products = [{
   name: "Coca Cola",
   img: 'https://www.w3schools.com/images/w3schools_green.jpg',
   amount: 5,
-  today: today.getTime(),
-  MHD: Math.round((MHD.getTime() -today.getTime())/(1000*60*60*24)),
+  MHD: Math.round((new Date(2021, 10, 20).getTime() -today.getTime())/(1000*60*60*24)),
+},
+{
+  ID: 2,
+  name: "Mango",
+  img: 'https://www.w3schools.com/images/w3schools_green.jpg',
+  amount: 10,
+  MHD: Math.round((new Date(2021, 4, 20).getTime() -today.getTime())/(1000*60*60*24)),
+},
+{
+  ID: 3,
+  name: "Coca Cola",
+  img: 'https://www.w3schools.com/images/w3schools_green.jpg',
+  amount: 5,
+  MHD: Math.round((new Date(2022, 6, 23).getTime() -today.getTime())/(1000*60*60*24)),
 }];
 
 router.get('/', function(req, res, next) {
