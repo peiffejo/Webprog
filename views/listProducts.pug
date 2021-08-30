@@ -2,13 +2,14 @@ extends layout
 
 block content
     each post in products
+       
         a#TitleList(href='/blog/singlePost/'+post.id) #{post.name}
         br
         img(src=post.img width='300' height='300') 
         br
-        p Amount: #{post.amount}   
-        p#love 
-        script.
-            MHD(#{post.MHD})
+        p Amount: #{post.amount}
+        
+        p#Trya #{post.MHD[0].text} 
         button#DetailBtn(type='submit') Details
+         
         p.lastentry 
