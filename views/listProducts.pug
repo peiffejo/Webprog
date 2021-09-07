@@ -2,6 +2,7 @@ extends layout
 
 block content
     each post in products
+<<<<<<< Updated upstream
        
         a#TitleList(href='/blog/singlePost/'+post.id) #{post.name}
         br
@@ -13,3 +14,15 @@ block content
         button#DetailBtn(type='submit') Details
          
         p.lastentry 
+=======
+        a#TitleList(href='/blog/singlePost/'+post.ID) #{post.name}
+        br
+        img(src=post.img width='300' height='300') 
+        br
+        p Amount: #{post.amount}   
+        p#love 
+        script.
+            MHD(#{post.MHD})
+        button#DetailBtn(type='submit' value=post.id) Details
+        p.lastentry 
+>>>>>>> Stashed changes

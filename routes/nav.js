@@ -53,9 +53,25 @@ router.get('/list', function (req, res) {
   res.render('listProducts', { products: products });
 });
 
+router.get('/singlePost/:ID', function (req, res) {
+  let post = posts.find(p => p.id === parseInt(req.params.ID));
+  res.render('listProducts', {ID});
+});
+
 router.get('/create', function (req, res) {
   res.render('createProduct', { products: products });
 
+});
+
+router.get('/change/:postID', function(req, res, next) {
+  let post = posts.find(p => p.id === parseInt(req.params.postID));
+  if(!post) {
+      res.status(404).send('Post not found'); 
+  }
+  post.author = req.body.author;
+  post.title = req.body.title;
+  post.text = req.body.text;
+  res.send(posts);
 });
   
 module.exports = router;
