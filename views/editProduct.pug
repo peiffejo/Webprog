@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  img(src=ID.img width='200' height='200') 
+  form#editFor()
+  label(for='name') name:
+  br
+  input#name(value= ID.name type='text' name='name' required)
+  br
+  label(for='amount') Menge:
+  br
+  input#amount(value= ID.amount type='text' name='amount' required)
+  br
+  label(for='MHD') Mindesthaltbarkeitsdatum:
+  br
+  input#MHD(value= ID.MHDdate type='text' name='MHD' required)
+  br
+  label(for='Stoffe') Inhaltsstoffe:
+  br
+  textarea#Stoffe( type='text' name='Stoffe' required) #{ID.text}
+  br
+  button#PostButton(type='submit', value = ID.id) Edit
+  p#errorRespo

@@ -1,0 +1,17 @@
+extends layout
+
+block content
+        script.
+        img(src=ID.img width='400' height='400')
+        br
+        h1 #{ID.name}
+        h2 Menge: #{ID.amount} 
+        button#plusOne(type = 'button' value=ID.amount) +
+        button#minusOne(type = 'button' value=ID.amount) -
+        br
+        br
+        form(action='/nav/edit/'+ID.ID)
+                input(type='submit' value= "Edit") 
+        button#deleteBtn(type = 'submit' value = ID.ID) Delete
+        button(type ='submit' onclick="location.href='/nav/list'") List
+

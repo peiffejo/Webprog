@@ -1,15 +1,15 @@
 extends layout
 
 block content
-    each post in products
-       
-        a#TitleList(href='/blog/singlePost/'+post.id) #{post.name}
-        br
-        img(src=post.img width='300' height='300') 
-        br
-        p Amount: #{post.amount}
-        
-        p#Trya #{post.MHD[0].text} 
-        button#DetailBtn(type='submit') Details
-         
-        p.lastentry 
+    each post in products   
+            a#TitleList #{post.name}
+            br
+            img(src=post.img width='200' height='200') 
+            br
+            p Amount: #{post.amount}
+            
+            p#Trya #{post.MHD[0].text}
+            form(action='/nav/singleProduct/'+post.ID)
+                input#single(type='submit' value= "Details" name="D")
+            p ----------------------------------------------
+            p.lastentry 

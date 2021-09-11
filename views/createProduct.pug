@@ -1,3 +1,24 @@
 extends layout
 
 block content
+    label#EAN(for='Barcode') EAN-Barcode:
+    br
+    input#name(type='text' name='Barcode' required)
+    br
+    label(for='amount') Produktmenge:
+    br
+    input#amount(value= "Produktmenge" type='number' name='amount' required)
+    br
+    label(for='MHD') Mindesthaltbarkeitsdatum:
+    br
+    input#MHD(type='text' name='MHD' required)
+    br
+    label(for='Stoffe') Inhaltsstoffe:
+    br
+    textarea#Stoffe( type='text' name='Stoffe' required) 
+    br
+    button#createPostButton(type='button') Create
+    button(type ='submit' onclick="location.href='/nav/list'") List
+    br
+    label#errorRes(for='errorRes')
+
