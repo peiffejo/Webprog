@@ -1,5 +1,28 @@
+const { response } = require("express");
+
 //plus 1 bei Menge
 document.getElementById('plusOne')?.addEventListener('click', function () {
+    let ID = document.getElementById('deleteBtn').value;
+    let getAmount = parseInt((document.getElementById('plusOne').value))+1;
+    let data = { 
+        amount: getAmount
+    };
+      fetch('/nav/plusOne/' + ID, {
+        method: 'Put',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(function (response) {
+          response.text().then(function (text) {
+            window.location = '/singleProduct/'+ID;
+          });
+        
+      });
+  });
+
+  document.getElementById('single')?.addEventListener('click', function () {
     let ID = document.getElementById('deleteBtn').value;
     let getAmount = parseInt((document.getElementById('plusOne').value))+1;
     let data = { 
@@ -58,6 +81,9 @@ document.getElementById('minusOne')?.addEventListener('click', function () {
       });
   });
 
+//fügt neues Produkt hinzu
+
+
 //löscht das Produkt
 document.getElementById('deleteBtn')?.addEventListener('click', function () {
     let ID = document.getElementById('deleteBtn').value;
@@ -75,3 +101,5 @@ document.getElementById('deleteBtn')?.addEventListener('click', function () {
                 });
             });
 
+
+    

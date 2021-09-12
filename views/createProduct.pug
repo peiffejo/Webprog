@@ -1,21 +1,39 @@
 extends layout
 
 block content
+    script.
+        function myFunction() {
+      let num =  document.getElementById("EAN").value;
+var XMLHttpRequest = require('xhr2');
+let requestXML = new XMLHttpRequest();
+let requestURL = 'https://world.openfoodfacts.org/api/v0/product/[454545].json';
+    requestXML.open('GET', requestURL);
+requestXML.responseType = 'text';
+requestXML.send();
+let superHeroes;
+
+requestXML.onload = function () {
+  var superHeroesText = requestXML.response;
+  superHeroes = JSON.parse(superHeroesText);
+  getSuperh(superHeroes);
+}
+
+function getSuperh(jsonObj) {
+  const heroes = jsonObj;
+  console.log(heroes);
+}
+        }
     label#EAN(for='Barcode') EAN-Barcode:
     br
     input#name(type='text' name='Barcode' required)
     br
     label(for='amount') Produktmenge:
     br
-    input#amount(value= "Produktmenge" type='number' name='amount' required)
+    input#amount(value= "Produktmenge" type='number' onclick='myFunction()' name='amount' required)
     br
     label(for='MHD') Mindesthaltbarkeitsdatum:
     br
-    input#MHD(type='text' name='MHD' required)
-    br
-    label(for='Stoffe') Inhaltsstoffe:
-    br
-    textarea#Stoffe( type='text' name='Stoffe' required) 
+    input#MHD(type='date' name='MHD' required)
     br
     button#createPostButton(type='button') Create
     button(type ='submit' onclick="location.href='/nav/list'") List

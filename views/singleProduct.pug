@@ -2,12 +2,18 @@ extends layout
 
 block content
         script.
+             
         img(src=ID.img width='400' height='400')
         br
         h1 #{ID.name}
+        img(src=ID.barcode)
         h2 Menge: #{ID.amount} 
         button#plusOne(type = 'button' value=ID.amount) +
         button#minusOne(type = 'button' value=ID.amount) -
+        h2 Inhaltsstoffe: 
+        p #{sendIng}
+        h2 Nährwerte
+        p #{sendNutri}
         br
         br
         form(action='/nav/edit/'+ID.ID)

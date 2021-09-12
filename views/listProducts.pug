@@ -1,14 +1,15 @@
 extends layout
 
 block content
-    each post in products   
+    each post in products  
             a#TitleList #{post.name}
             br
             img(src=post.img width='200' height='200') 
             br
             p Amount: #{post.amount}
-            
-            p#Trya #{post.MHD[0].text}
+            label(style= post.MHD[0].color) #{post.MHD[0].text}
+            br
+            br
             form(action='/nav/singleProduct/'+post.ID)
                 input#single(type='submit' value= "Details" name="D")
             p ----------------------------------------------
