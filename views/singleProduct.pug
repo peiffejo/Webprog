@@ -11,13 +11,13 @@ block content
         button#plusOne(type = 'button' value=ID.amount) +
         button#minusOne(type = 'button' value=ID.amount) -
         h2 Inhaltsstoffe: 
-        p #{sendIng}
+        p #{ID.ing}
         h2 Nährwerte
-        p #{sendNutri}
+        p #{ID.nutri}
         br
         br
         form(action='/nav/edit/'+ID.ID)
-                input(type='submit' value= "Edit") 
+                input#editBtn(type='submit' value= "Edit") 
         button#deleteBtn(type = 'submit' value = ID.ID) Delete
         button(type ='submit' onclick="location.href='/nav/list'") List
 

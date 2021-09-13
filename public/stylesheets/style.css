@@ -39,8 +39,22 @@ li a:hover {
   size:30px;
   font-size: 300%;
 }
-
-#single {
+#hiddenNutri{display:none}
+#hiddenIng{display:none}
+#hiddenImg{display:none}
+#hiddenMHD{display:none}
+#hiddenMHDlong{display:none}
+#hiddenName{display:none}
+#editBtn{
+  background-color: #30578a;
+  margin: 5px;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+#single{
   background-color: #000000;
   color: white;
   padding: 10px;
@@ -61,6 +75,7 @@ li a:hover {
 button {
   background-color: #4CAF50;
   margin: 5px;
+  size: 50px;
   color: white;
   padding: 16px;
   font-size: 16px;

@@ -105,27 +105,33 @@ let products = [{
   name: "Coca Cola",
   img: 'https://as2.ftcdn.net/v2/jpg/01/83/31/03/500_F_183310393_A7hcmA9HKSLnym7VUPwhgmByrcvxJRoK.jpg',
   barcode: 'http://bwipjs-api.metafloor.com/?bcid=code128&text=5449000017888',
+  ing: "Wasser || Zucker || Kohlensäure || Farbstoff || Säurerungsmittel Phosphorsäure || natürliches Aroma || Aroma Koffein || e150d ||",
+  nutri: "Brennwert: 180 kcal || Kohlenhydrate: 10.6 g || Fett: 0 g || Eiweiß: 0g || Salz: 0 g || Zucker 10.6 g",
   amount: 5,
   MHD: MHD(Math.round((CocaCola.getTime() -today.getTime())/(1000*60*60*24))),
-  MHDdate: [CocaCola.getDate(), CocaCola.getMonth(), CocaCola.getFullYear()],
+  MHDdate: CocaCola.getFullYear() + "-0" + CocaCola.getMonth() + "-" + CocaCola.getDate(),
 },
 {
   ID: 2,
   name: "Snickers",
   img: 'https://world.openfoodfacts.org/images/products/500/015/945/2540/front_de.42.full.jpg',
   barcode: 'http://bwipjs-api.metafloor.com/?bcid=code128&text=5000159452540',
+  ing: "Zucker || Glukosesirup || Erdnüsse Magermilchpulver || Kakaobutter || Kakaomasse || Sonnenblumenöl || Butterreinfett || Milchzucker || Molkepermeat || Palmfett || Salz || Emulgator || Hühnerei || Trockeneiweiss || Milcheiweiss || Vanilleextrakt || PT Chocolate de leito 00 || aus Milch || aus Milch || Sojalecithin || ",
+  nutri: "Brennwert: 2023 kcal || Kohlenhydrate: 60.2 g || Fett: 22.8 g || Eiweiß: 8.6g || Salz: 0.63 g || Zucker 51.5 g",
   amount: 10,
   MHD: MHD(Math.round((Mango.getTime() -today.getTime())/(1000*60*60*24))),
-  MHDdate: [Mango.getDate(), Mango.getMonth(), Mango.getFullYear()],
+  MHDdate: Mango.getFullYear()+ "-0" + Mango.getMonth()+ "-" + Mango.getDate(),
 },
 {
   ID: 3,
   name: "Kiwi",
   img: 'https://www.publicdomainpictures.net/pictures/70000/velka/kiwi-fruit-1389439824dsq.jpg',
   barcode: 'http://bwipjs-api.metafloor.com/?bcid=code128&text=94185454',
+  ing: "Kiwi",
+  nutri: "Brennwert: undefined kcal || Kohlenhydrate: undefined undefined || Fett: undefined undefined || Eiweiß: undefinedundefined || Salz: undefined undefined || Zucker undefined undefined",
   amount: 5,
   MHD: MHD(Math.round((Kiwi.getTime() -today.getTime())/(1000*60*60*24))),
-  MHDdate: [Kiwi.getDate(), Kiwi.getMonth(), Kiwi.getFullYear()]
+  MHDdate: Kiwi.getFullYear()+ "-0" + Kiwi.getMonth()+ "-" + Kiwi.getDate(),
 }];
 
 router.get('/', function(req, res, next) {
@@ -136,19 +142,7 @@ router.get('/', function(req, res, next) {
   router.get('/singleProduct/:id', function (req, res) {
     let id = parseInt(req.params.id);
     const ID = products.find(c => c.ID === id);
-    let sendIng;
-    let sendNutri;
-   if(id == 1){
-      sendNutri = nutriCocaCola;
-      sendIng = test;
-    }else if(id == 2){
-      sendNutri = mangoNutri;
-      sendIng = mangoIng;
-    }else if(id == 3){
-      sendNutri = kiwiNutri;
-      sendIng = kiwiIng;
-    }
-    res.render('singleProduct', { ID, sendIng, sendNutri});
+    res.render('singleProduct', {ID});
 });
 
 //Zeigt alle Produkte
@@ -159,7 +153,7 @@ router.get('/list', function (req, res) {
 //zeigt die Seite zum editieren 
 router.get('/edit/:id', function (req, res) {
   const ID = products.find(c => c.ID === parseInt(req.params.id));
-  res.render('editProduct', { ID });
+  res.render('editProduct', { ID});
 });
 
 //löscht bestimmtes Produkt
@@ -177,23 +171,26 @@ router.get('/create', function (req, res) {
   res.render('createProduct', { });
 });
 
+function IDgenerator(){
+  return parseInt((new Date()).getTime());
+}
 
 //erstellt ein neues Produkt
 router.post('/new', function (req, res, next) {
-  
   const item = {
-      ID: ++products[products.length].ID,
-      barcode: req.body.barcode,
-      name: nameProduct,
-      img: picProduct,
-      nutri: nutriText,
-      ing: texti,
+      ID: IDgenerator(),
+      name:req.body.name,
+      img: req.body.img,
+      barcode: 'http://bwipjs-api.metafloor.com/?bcid=code128&text='+ req.body.barcode,
+      ing: req.body.ing,
+      nutri: req.body.nutri,
       amount: req.body.amount,
-      MHD: MHD(Math.round(((req.body.MHD).getTime() -today.getTime())/(1000*60*60*24))),
-      
-  }
-  let validater = true;
-  let i = 0;
+      MHD:MHD(req.body.MHD),
+      MHDdate:req.body.MHDdate,
+  };
+
+  console.log(item);
+
   /*while(products[i] != null) {
       if (JSON.stringify(products[i].Email) == JSON.stringify(item.Email)) {
           validater = false;
@@ -204,16 +201,34 @@ router.post('/new', function (req, res, next) {
       i++;
   }*/
   
-  if (!(validater)) {
-      res.status(406).send('error');
-  } else {
       products.push(item);
       res.send(item);
-  }
 
 });
 
-//
+
+//ändert das Produkt
+router.put('/change/:postID', function (req, res, next) {
+  let post = products.find(p => p.ID === parseInt(req.params.postID));
+  if (!post) {
+      res.status(404).send('Post not found');
+  }
+  post.name = req.body.name;
+  post.amount = req.body.amount;
+  post.MHD = MHD(req.body.MHD);
+  post.MHDdate = req.body.MHDdate;
+  post.ing = req.body.ing;
+  console.log(post.ing)
+  let validater = true;
+  if (!(validater)) {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.send(JSON.stringify('error'));
+  } else {
+  res.send(products);
+  }
+});
+
+//Produkt menge um 1 erhöhen
 router.put('/plusOne/:postID', function (req, res, next) {
   let post = products.find(p => p.ID === parseInt(req.params.postID));
   if (!post) {
