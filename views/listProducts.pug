@@ -1,6 +1,7 @@
 extends layout
 
 block content
+<<<<<<< HEAD
     each post in products
 <<<<<<< Updated upstream
        
@@ -26,3 +27,18 @@ block content
         button#DetailBtn(type='submit' value=post.id) Details
         p.lastentry 
 >>>>>>> Stashed changes
+=======
+    each post in products  
+            a#TitleList #{post.name}
+            br
+            img(src=post.img width='200' height='200') 
+            br
+            p Amount: #{post.amount}
+            label(style= post.MHD[0].color) #{post.MHD[0].text}
+            br
+            br
+            form(action='/nav/singleProduct/'+post.ID)
+                input#single(type='submit' value= "Details" name="D")
+            p ----------------------------------------------
+            p.lastentry 
+>>>>>>> 702c5531e4326b68921eea544e3bcb8be71ee605

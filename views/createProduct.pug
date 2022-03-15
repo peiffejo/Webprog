@@ -1,3 +1,68 @@
 extends layout
 
 block content
+    script.
+      function myFunction(){
+        let num = document.getElementById('name').value;
+        let requestURL = 'https://world.openfoodfacts.org/api/v0/product/['+num+'].json';
+          async function getISS(){
+            const response = await fetch(requestURL);
+            const data = await response.json()
+            console.log(data);
+            if(data['status'] == 0 ){
+            document.getElementById('errorRes').innerText = "kein gültiger EAN-Barcode";
+            }
+            const ingr = data['product']['ingredients_text_de'];
+            const nutri = data['product']['nutriments'];
+            const img = data['product']['image_url'];
+            const name = data['product']['brands'];
+            let nutriS ="Brennwert: "+ nutri.energy + " " +  "kcal || " + "Kohlenhydrate: "+nutri.carbohydrates + " " + nutri.carbohydrates_unit + " || " + "Fett: "+ nutri.fat + " " +  nutri.fat_unit + " || "+ " " + "Eiweiß: " + nutri.proteins  + nutri.proteins_unit+ " || " + "Salz: " + nutri.salt + " " + nutri.salt_unit + " || " + "Zucker " +  nutri.sugars + " " +nutri.sugars_unit; 
+            document.getElementById('hiddenNutri').value = nutriS;
+            document.getElementById('hiddenIng').value = ingr;
+            document.getElementById('hiddenImg').value = img;
+            document.getElementById('hiddenName').value = name;
+            let today = new Date();
+            let num2 = (document.getElementById('MHD').value).split('-');
+            let DATE = new Date(num2);
+            let MHDdate = Math.round((DATE.getTime() -today.getTime())/(1000*60*60*24))+1;
+            let month;
+            let day;
+            if(DATE.getMonth()+1 <= 9){
+              month = "-0" + (DATE.getMonth()+1);
+            }else{
+              month = "-" + (DATE.getMonth()+1);
+            }
+            if(DATE.getDate()+1 <= 9){
+              day = "-0" + DATE.getDate();
+            }else{
+              day = "-" + DATE.getDate();
+            }
+            let MHDdateLong = [DATE.getFullYear() + month + day];
+            document.getElementById('hiddenMHD').value = MHDdate;
+            document.getElementById('hiddenMHDlong').value = MHDdateLong;
+          }
+        getISS();
+      }
+    label#EAN(for='Barcode') EAN-Barcode:
+    br
+    input#name(type='text' name='name' required)
+    br
+    label(for='amount') Produktmenge:
+    br
+    input#amount(value= "Produktmenge" type='number' name='amount' required)
+    br
+    label(for='MHD') Mindesthaltbarkeitsdatum:
+    br
+    input#MHD(type='date' name='MHD' required)
+    br
+    button#createPostButton(type='button' onclick='myFunction()' onmouseover='myFunction()') Create
+    button(type ='submit' onclick="location.href='/nav/list'") List
+    br
+    label#errorRes(for='errorRes')
+    input#hiddenNutri(type='text' name='hddenNutri' required)
+    input#hiddenIng(type='text' name='hddenIng' required)
+    input#hiddenImg(type='text' name='hddenImg' required)
+    input#hiddenMHD(type='text' name='hiddenMHD')
+    input#hiddenMHDlong(type='text' name='hiddenMHDlong')
+    input#hiddenName(type='text' name='hiddenName')
+

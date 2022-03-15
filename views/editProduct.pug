@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  script.
+    function myFunction(){
+    let today = new Date();
+    let num2 = (document.getElementById('MHD').value).split('-');
+    let DATE = new Date(num2);
+    let MHDdate = Math.round((DATE.getTime() -today.getTime())/(1000*60*60*24))+1;
+    let month;
+    let day;
+    if(DATE.getMonth()+1 <= 9){
+      month = "-0" + (DATE.getMonth());
+      }else{
+    month = "-" + (DATE.getMonth());
+    }
+    if(DATE.getDate()+1 <= 9){
+    day = "-0" + DATE.getDate();
+    }else{
+    day = "-" + DATE.getDate();
+    }
+    let MHDdateLong = DATE.getFullYear() + month + day;
+            document.getElementById('hiddenMHD').value = MHDdate;
+            document.getElementById('hiddenMHDlong').value = MHDdateLong;
+          console.log(MHDdateLong)
+    }
+  img(src=ID.img width='200' height='200') 
+  form#editFor()
+  label(for='name') Name:
+  br
+  input#name(value= ID.name type='text' name='name' required)
+  br
+  label(for='amount') Menge:
+  br
+  input#amount(value= ID.amount type='text' size="3" name='amount' required)
+  br
+  label(for='MHD') Mindesthaltbarkeitsdatum:
+  br
+  input#MHD(value= ID.MHDdate type='date' name='MHD' required)
+  br
+  label(for='Stoffe') Inhaltsstoffe:
+  br
+  input#Stoffe(value=ID.ing type='text' size="70" name='Stoffe' required) 
+  br
+  button#PostButton(type='submit', onmouseover='myFunction()' value = ID.ID) Edit
+  p#errorRes
+  input#hiddenMHD(type='text' name='hiddenMHD')
+  input#hiddenMHDlong(type='text' name='hiddenMHDlong')
