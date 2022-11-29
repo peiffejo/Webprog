@@ -150,27 +150,9 @@ router.get('/list', function (req, res) {
   res.render('listProducts', { products: products });
 });
 
-<<<<<<< HEAD
 router.get('/singlePost/:ID', function (req, res) {
   let post = posts.find(p => p.id === parseInt(req.params.ID));
   res.render('listProducts', {ID});
-=======
-//zeigt die Seite zum editieren 
-router.get('/edit/:id', function (req, res) {
-  const ID = products.find(c => c.ID === parseInt(req.params.id));
-  res.render('editProduct', { ID});
-});
-
-//löscht bestimmtes Produkt
-router.delete('/delete/:postID', function (req, res, next) {
-  let post = products.find(p => p.ID === parseInt(req.params.postID));
-  if (!post) {
-      res.status(404).send('Post not found');
-  }
-  let index = products.indexOf(post);
-  products.splice(index, 1);
-  res.send(products);
->>>>>>> 702c5531e4326b68921eea544e3bcb8be71ee605
 });
 
 router.get('/create', function (req, res) {
